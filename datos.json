@@ -1,0 +1,38 @@
+[
+    {
+        "consigna":"De Haití, nación de la isla de Santo Domingo.",
+        "letras":"8",
+        "claringrilla":"19235",
+        "respuesta":"Haitiano"    
+    },
+    {
+        "consigna":"Predicción de males o desdichas, sin fundamento.",
+        "letras":"8",
+        "claringrilla":"15122",
+        "respuesta":"Agorería"    
+    },
+    {
+        "consigna":"Expuse un tema con palabras muy claras.",
+        "letras":"8",
+        "claringrilla":"19235",
+        "respuesta":"Explique"    
+    },
+    {
+        "consigna":"Cacarear la gallina clueca.",
+        "letras":"8",
+        "claringrilla":"15111",
+        "respuesta":"Cloquear"    
+    },
+    {
+        "consigna":"Sustancia dura que forma los colmillos de los elefantes",
+        "letras":"6",
+        "claringrilla":"15116",
+        "respuesta":"Marfil"    
+    },
+    {
+        "consigna":"(Ley del ~) Pena en que el delincuente sufre un daño igual al que causó.",
+        "letras":"6",
+        "claringrilla":"15107",
+        "respuesta":"Talión"    
+    }
+]

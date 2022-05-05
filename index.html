@@ -10,42 +10,22 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Tus Recectas</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                <!-- Home -->
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <!-- Link -->
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled">
-                            </a>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://www.clarin.com/static/CLAClarin/images/Clarin-sahreing-fbk.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Claringrillas al Azar
+            </a>
         </nav>
     </header>
     <main>
-        <div class="d-grid gap-2 col-6 mx-auto mt-5">
-            <button class="btn btn-primary" id="agregar-receta" type="button">Agregar una receta</button>
+        <div class="jumbotron">
+            <h1 class="display-4 text-center">Hola</h1>
+            <p class="lead">Esta pagina está destinada a aquellos fanáticos de las claringrillas. Vas a poder ir practicando las consignas de las claringrillas para poder resolverlas más rápido que nadie.</p>
+            <hr class="my-4">
+            <p>Cada vez que apretes en el botón, una consigna de claringrilla al azar, con su correspondiente cantidad de letras aparecerá en pantalla.</p>
+            <button class="btn btn-primary btn-lg"  onclick="pedirClaringrilla()">Dame una claringrilla al azar.</button>
         </div>
+        <p id="listado"></p>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
