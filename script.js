@@ -1,74 +1,93 @@
-// let agregar = document.querySelector("#agregar-receta");
-// agregar.onclick = () =>{nuevaReceta()};
-// let hoy = new Date();
-
-// let yo = "Lucho";
-// const agregarReceta = () =>{
-//     Swal.fire({
-//         title: '¡Felicitaciones!',
-//         text: 'Agregaste una nueva receta',
-//         icon: 'success',
-//         confirmButtonText: 'Aceptar'
-//     })
-//     let fecha = document.querySelector("#fecha");
-//     localStorage.setItem("Fecha", fecha.value);
-//     let nombre = document.querySelector("#nombre");
-//     localStorage.setItem("Nombre", nombre.value);
-//     let foto = document.querySelector("#foto");
-//     localStorage.setItem("Foto", foto.value);
-//     let dificultad = document.querySelector("#dificultad");
-//     localStorage.setItem("Dificultad", dificultad.value);
-//     let ingredientes = document.querySelector("#ingredientes");
-//     localStorage.setItem("Ingredientes", ingredientes.value);
-//     let preparacion = document.querySelector("#preparacion");
-//     localStorage.setItem("Preparacion", preparacion.value);
-//     return false;
-// }
-
-// const nuevaReceta = () =>{
-//     let parrafo = document.createElement("form");
-//     parrafo.innerHTML = `
-//         <form class="p-5 formulario-receta" >
-//             <label for="nombre" class="form-label">Fecha</label>
-//             <input type="date" id="fecha" name="fecha" class="form-control">
-//             <label for="nombre" class="form-label">Nombre</label>
-//             <input type="text" id="nombre" name="nombre" class="form-control">
-//             <label for="foto" class="form-label">Foto</label>
-//             <input type="file" id="foto" name="foto" class="form-control">
-//             <label for="dificultad" class="form-label">Dificultad</label>
-//             <input type="text" id="dificultad" name="dificultad" class="form-control">
-//             <label for="ingredientes" class="form-label">Ingredientes</label>
-//             <input type="text" id="ingredientes" name="ingredientes" class="form-control">
-//             <label for="preparacion" class="form-label">Preparacion</label>
-//             <input type="text" id="preparacion" name="preparacion" class="form-control">
-//             <button onclick="agregarReceta(); return false" type="submit" class="btn btn-primary">Agregar</button>
-//         </form>
-//     `; 
-//     document.body.appendChild(parrafo);
-//     agregar.remove();
-// }
-// const lista = document.querySelector('#listado')
-const lista = document.querySelector('#listado')
-
-
+let consignas = [];
+let contador = 0;
+let respuestaCorrecta = "";
 const pedirClaringrilla = () =>{
     fetch('/datos.json ')
         .then( (res) => res.json())
         .then( (data) => {
-    
-            data.forEach((item) => {
-                const li = document.createElement('li')
-                li.innerHTML = `
-                    <h4>${item.consigna}</h4>
-                    <p>${item.letras}</p>
-                    <p>Claringrilla: ${item.claringrilla}</p>
-                    <hr/>
-                    <p>${item.respuesta}</p>
-                `
-                lista.append(li)
-            })
+            for(let consigna of data){
+                consignas.push(consigna);
+            }
+            consignas = shuffle(consignas);
+            const boton = document.querySelector('#generador_claringrilla');
+            boton.remove();
+            
+        }).then((res)=>{
+            generarClaringrilla(contador);
+            botonComparar();
         })
 }
 
 
+/* Función para mezclar arrays */
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+    
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+    
+        return array;
+}
 
+//Generador de boton comparar
+const botonComparar = () =>{
+    const comparar = document.createElement('div')
+    comparar.innerHTML = `
+    <button class="btn btn-primary btn-lg"  id="generador_claringrilla" onclick="siguienteClaringrilla(contador)">Comparar respuesta</button>
+    `
+    lista.append(comparar)
+}
+
+const lista = document.querySelector('#listado');
+const generarClaringrilla = (pregunta) =>{
+    const li = document.createElement('li')
+    li.innerHTML = `
+        <h4>${consignas[pregunta]['consigna']}</h4>
+        <p>${consignas[pregunta]['letras']}<br>
+        Claringrilla: ${consignas[pregunta]['claringrilla']}</p>
+        <label for="respuesta">Respuesta</label>
+        <input type="text" class="form-control" id="respuesta" placeholder="Respuesta">
+        <hr/>
+    `
+    respuestaCorrecta = consignas[pregunta]['respuesta'];
+    lista.append(li)
+    contador++;
+    if(contador == consignas.length){
+        contador = 0;
+    }
+}
+const siguienteClaringrilla = () =>{
+    let respuestaUsuario = document.querySelector('#respuesta').value;
+    respuestaUsuario = normalizar(respuestaUsuario);
+    respuestaCorrecta = normalizar(respuestaCorrecta);
+    if(respuestaUsuario == respuestaCorrecta){
+        Swal.fire({
+            title: '¡Felicitaciones!',
+            text: 'Tu respuesta es correcta',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'    
+        })
+    }else{
+        Swal.fire({
+            title: '¡Que pena!',
+            text: 'Tu respuesta es incorrecta',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'    
+            })
+    }
+    const claringrilla = document.querySelector('li');
+    const boton = document.querySelector('#generador_claringrilla');
+    claringrilla.remove();
+    boton.remove();
+    generarClaringrilla(contador);
+    botonComparar();
+}
+
+//Sacar acentos y pasar a minusculas
+const normalizar = (str) =>{
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
